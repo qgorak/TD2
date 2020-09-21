@@ -50,33 +50,58 @@ public class OrgaController {
         
     }
 	@RequestMapping("orga/new")
-	public String addNewOrga() {
+	public String displayNewOrga() {
 		return "viewNewOrga";
 	}
-	@RequestMapping("orga/newOrga")
-    public RedirectView New(@RequestParam String name,@RequestParam String domain,@RequestParam String aliases,@ModelAttribute("organizations") Organization orga) {
+	
+	@PostMapping("orga/newOrga")
+    public RedirectView newOrga(@ModelAttribute Organization orga) {
 		Organization e = orga;
-		e.setName(name);
-		e.setDomain(domain);
-		e.setAliases(aliases);
         repo.saveAndFlush(e);
         return new RedirectView("/");
     }
 
 	@RequestMapping("orga/delete/{id}")
-    public RedirectView New(@PathVariable int id) {
+    public RedirectView deleteOrga(@PathVariable int id) {
 		repo.deleteById(id);
         return new RedirectView("/");
     }
-	@RequestMapping("orga/{id}")
-    public @ResponseBody String getOrga(@PathVariable int id) {
-		Optional<Organization> opt = repo.findById(id);
-        if(opt.isPresent()) {
-        	return opt.get()+"";
-        }
-        return "organisation non trouvée";
-        
+	@RequestMapping("orga/display/{id}")
+    public String displayOrga(@PathVariable int id,Model model) {
+		Organization opt = repo.findById(id);
+		model.addAttribute("id", opt.getId());
+        model.addAttribute("name", opt.getName());
+        model.addAttribute("domain", opt.getDomain());
+        model.addAttribute("aliases", opt.getAliases());
+        return "viewDisplayOrga";
     }
+	@RequestMapping("orga/edit/{id}")
+    public String displayEditOrga(@PathVariable int id,Model model) {
+		Organization opt = repo.findById(id);
+		model.addAttribute("id", opt.getId());
+        model.addAttribute("name", opt.getName());
+        model.addAttribute("domain", opt.getDomain());
+        model.addAttribute("aliases", opt.getAliases());
+        return "viewEditOrga";
+    }
+	@PostMapping("orga/updateOrga/{id}")
+    public RedirectView updateOrga(@PathVariable int id,@ModelAttribute Organization orga) {
+		Organization orgaToUpdate = repo.findById(id);
+		orgaToUpdate.setName(orga.getName());
+		orgaToUpdate.setDomain(orga.getDomain());
+		orgaToUpdate.setAliases(orga.getAliases());
+		repo.save(orgaToUpdate);
+        return new RedirectView("/");
+    }
+	//@RequestMapping("orga/{id}")
+  //  public @ResponseBody String getOrga(@PathVariable int id) {
+//		Optional<Organization> opt = repo.findById(id);
+ //       if(opt.isPresent()) {
+  //      	return opt.get()+"";
+ //       }
+ //       return "organisation non trouvée";
+        
+  //  }
 	
 
 

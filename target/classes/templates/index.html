@@ -1,11 +1,5 @@
 {{> include/header}}
-<h2 class="ui header">
-  <i class="envelope icon"></i>
-  <div class="content">
-    Springboot TD n°2
-    <div class="sub header">Application de messagerie</div>
-  </div>
-</h2>
+
 <div class="ui container segment">
 <button class="ui black button" onclick="window.location.href='/orga/new'"><i class="plus icon"></i>Ajouter une organisation</button>
 <table class="ui single line table">
@@ -26,8 +20,8 @@
       <td>{{domain}}</td>
       <td>{{aliases}}
      <button style="float:right;" onclick="window.location.href='/orga/delete/{{id}}'" class="circular ui red basic icon button"><i class="x icon"></i></button>
-      <button style="float:right;" class="circular ui basic icon button"><i class="edit icon"></i></button>
-      <button style="float:right;" class="circular white basic ui icon button"><i class="eye icon "></i></button>
+      <button style="float:right;" onclick="window.location.href='/orga/edit/{{id}}'" class="circular ui basic icon button"><i class="edit icon"></i></button>
+      <button style="float:right;" onclick="window.location.href='/orga/display/{{id}}'"class="circular white basic ui icon button"><i class="eye icon "></i></button>
       
       </td>
     </tr>

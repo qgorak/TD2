@@ -7,28 +7,31 @@
 
 <i class="big icons">
   <i class="table icon"></i>
-  <i class="bottom right corner add icon"></i>
+  <i class="bottom right corner edit icon"></i>
 </i>
 
 
   
   <div class="content">
     models\Organization
-    <div class="sub header">New object creation</div>
+    <div class="sub header">Editing an existing object</div>
   </div>
 </h4>
-<form class="ui form"method="POST" action="/orga/newOrga" modelAttribute="organization">
+<form class="ui form"method="POST" action="/orga/updateOrga/{{id}}" modelAttribute="organizations">
   <div class="field">
     <label>Name</label>
-    <input type="text" name="name" placeholder="Name">
+  
+    
+    <input type="text" name="name" value="{{name}}">
+
   </div>
   <div class="field">
     <label>Domain</label>
-    <input type="text" name="domain" placeholder="Domain">
+    <input type="text" name="domain" value="{{domain}}">
   </div>
     <div class="field">
     <label>Aliases</label>
-    <input type="text" name="aliases" placeholder="Aliases">
+    <input type="text" name="aliases" value="{{aliases}}">
   </div>
   
   <div class="ui container segment">
