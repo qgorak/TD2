@@ -1,4 +1,20 @@
 </div>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "/orgas/";
+    }
+    var urlParams = new URLSearchParams(window.location.search); //get all parameters
+    var keyword = urlParams.get('keyword');  //extract the keyword parameter - this will return NULL if keyword isn't a parameter
+
+    if(keyword) { //check if keyword parameter is set to anything
+      
+        document.getElementById("but").style.display = "visible";
+    }else{
+    	document.getElementById("but").style.display = "none";
+    }
+
+
+</script>
 <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="/webjars/fomantic-ui/dist/semantic.min.js"></script>
 </body>

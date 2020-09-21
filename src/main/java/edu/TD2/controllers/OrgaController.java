@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,31 +43,41 @@ public class OrgaController {
 	@Autowired
 	private UserRepository uRepo;
 	
-	@RequestMapping("/")
-    public String index(Model model) {
-		 List<Organization> organizations = repo.findAll();
+
+    
+    
+	@RequestMapping("/orgas/")
+    public String index(Model model, @Param("keyword") String keyword) {
+	    
+	        if (keyword != null) {
+	        	List<Organization> organizations = repo.search(keyword);
+	        	model.addAttribute("organizations", organizations);
+	        	return "index";
+	        }
+	     List<Organization> organizations = repo.findAll();
+	     repo.findAll();
 	     model.addAttribute("organizations", organizations);
         return "index";
-        
+       
     }
-	@RequestMapping("orga/new")
+	@RequestMapping("orgas/new")
 	public String displayNewOrga() {
 		return "viewNewOrga";
 	}
 	
-	@PostMapping("orga/newOrga")
+	@PostMapping("orgas/newOrga")
     public RedirectView newOrga(@ModelAttribute Organization orga) {
 		Organization e = orga;
         repo.saveAndFlush(e);
-        return new RedirectView("/");
+        return new RedirectView("/orgas/");
     }
 
-	@RequestMapping("orga/delete/{id}")
+	@RequestMapping("orgas/delete/{id}")
     public RedirectView deleteOrga(@PathVariable int id) {
 		repo.deleteById(id);
-        return new RedirectView("/");
+        return new RedirectView("/orgas/");
     }
-	@RequestMapping("orga/display/{id}")
+	@RequestMapping("orgas/display/{id}")
     public String displayOrga(@PathVariable int id,Model model) {
 		Organization opt = repo.findById(id);
 		model.addAttribute("id", opt.getId());
@@ -75,7 +86,7 @@ public class OrgaController {
         model.addAttribute("aliases", opt.getAliases());
         return "viewDisplayOrga";
     }
-	@RequestMapping("orga/edit/{id}")
+	@RequestMapping("orgas/edit/{id}")
     public String displayEditOrga(@PathVariable int id,Model model) {
 		Organization opt = repo.findById(id);
 		model.addAttribute("id", opt.getId());
@@ -84,7 +95,7 @@ public class OrgaController {
         model.addAttribute("aliases", opt.getAliases());
         return "viewEditOrga";
     }
-	@PostMapping("orga/updateOrga/{id}")
+	@PostMapping("orgas/updateOrga/{id}")
     public RedirectView updateOrga(@PathVariable int id,@ModelAttribute Organization orga) {
 		Organization orgaToUpdate = repo.findById(id);
 		orgaToUpdate.setName(orga.getName());

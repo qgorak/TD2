@@ -1,7 +1,7 @@
 {{> include/header}}
 
 <div class="ui container segment">
-<button class="ui black button" onclick="window.location.href='/orga/new'"><i class="plus icon"></i>Ajouter une organisation</button>
+<button class="ui black button" onclick="window.location.href='/orgas/new'"><i class="plus icon"></i>Ajouter une organisation</button>
 <table class="ui single line table">
   <thead>
     <tr>
@@ -9,7 +9,7 @@
       <th>Name</th>
       <th>Domain</th>
       <th>Aliases</th>
-
+		<th></th>
     </tr>
   </thead>
   <tbody>
@@ -18,20 +18,40 @@
       <td>{{id}}</td>
       <td>{{name}}</td>
       <td>{{domain}}</td>
-      <td>{{aliases}}
-     <button style="float:right;" onclick="window.location.href='/orga/delete/{{id}}'" class="circular ui red basic icon button"><i class="x icon"></i></button>
-      <button style="float:right;" onclick="window.location.href='/orga/edit/{{id}}'" class="circular ui basic icon button"><i class="edit icon"></i></button>
-      <button style="float:right;" onclick="window.location.href='/orga/display/{{id}}'"class="circular white basic ui icon button"><i class="eye icon "></i></button>
+      <td>{{aliases}}</td>
+      <td>
+     <button style="float:right;" onclick="window.location.href='/orgas/delete/{{id}}'" class="circular ui red basic icon button"><i class="x icon"></i></button>
+      <button style="float:right;" onclick="window.location.href='/orgas/edit/{{id}}'" class="circular ui basic icon button"><i class="edit icon"></i></button>
+      <button style="float:right;" onclick="window.location.href='/orgas/display/{{id}}'"class="circular white basic ui icon button"><i class="eye icon "></i></button>
       
       </td>
     </tr>
-    {{/organizations}}
-
  
+ {{/organizations}}
   </tbody>
+     <tfoot>
+    
+        <tr >
+      <th></th>
+      <th></th>
+      <th></th>
+      <th> </th>
+      <th><form style="float:right;" th:action="@{/}">
+      <div class="ui icon input">
+      <i class="search icon"></i>
+  <input class="search" type="text" placeholder="Search..." name="keyword" id="keyword" size="25" th:value="${keyword}" required />
+</div>
+    <button id="but" class="ui icon button clear" onclick="clearSearch()"><i class="x icon"></i></button>
+</form></th>
+    </tr>
+</tfoot>
 </table>
 
 </div>
+
+
+  
+  
 
 
 

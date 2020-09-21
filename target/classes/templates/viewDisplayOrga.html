@@ -1,43 +1,44 @@
 {{> include/header}}
 
-<h4 style="margin-top:5px;" class="ui header block">
+<div class="ui container segment">
+
+<button class="ui black button" onclick="window.location.href='/orgas/new'"><i class="plus icon"></i>Ajouter une organisation</button>
+
+<div class="ui hidden divider"></div>
+<button class="ui button" onclick="window.location.href='/orgas/'"><i class="x icon"></i>Fermer</button>
+<button class="ui red basic button" onclick="window.location.href='/orgas/delete/{{id}}'"><i class="x icon"></i>Supprimer <b>{{domain}}</b></button>
+<button class="ui basic button" onclick="window.location.href='/orgas/edit/{{id}}'"><i class="edit icon"></i>Modifier<b> {{domain}}</b></button>
+<table class="ui definition table">
+
+  <tbody>
+    <tr>
+      <td>Id</td>
+      <td>{{id}}</td>
+      
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{name}}</td>
+    </tr>
+          <td>Domain</td>
+      <td>{{domain}}</td>
+    </tr>
+          <td>Aliases</td>
+      <td>{{aliases}}</td>
+    </tr>
+   		<td>Groupes</td>
+      <td></td>
+      </tr>
+      <td>Organizationsettingss<td>
+      <td></td>
+      </tr>
+            <td>Users<td>
+      <td></td>
+    </tr>
 
 
+</tbody></table>
 
-
-<i class="big icons">
-  <i class="table icon"></i>
-  <i class="bottom right corner edit icon"></i>
-</i>
-
-
-  
-  <div class="content">
-    models\Organization
-    <div class="sub header">Editing an existing object</div>
-  </div>
-</h4>
-<form class="ui form"method="POST" action="/orga/updateOrga/{{id}}" modelAttribute="organizations">
-  <div class="field">
-    <label>Name</label>
-  
-    
-    <input type="text" name="name" value="{{name}}">
-
-  </div>
-  <div class="field">
-    <label>Domain</label>
-    <input type="text" name="domain" value="{{domain}}">
-  </div>
-    <div class="field">
-    <label>Aliases</label>
-    <input type="text" name="aliases" value="{{aliases}}">
-  </div>
-  
-  <div class="ui container segment">
-    <button class="ui green button" type="submit"><i class="circle check icon"></i>Validate</button>
-    <button class="ui button" type="button" onclick="window.location.href='/'"><i class="circle outline icon"></i>Cancel</button>
- </div>
-</form>
+</div>
 
 {{> include/footer}}
