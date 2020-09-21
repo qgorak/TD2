@@ -5,6 +5,7 @@ import edu.TD2.models.WebConfig;
 import edu.TD2.repositories.OrgaRepository;
 import edu.TD2.repositories.UserRepository;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,23 +42,32 @@ public class OrgaController {
 	@Autowired
 	private UserRepository uRepo;
 	
-	@GetMapping("/")
+	@RequestMapping("/")
     public String index(Model model) {
 		 List<Organization> organizations = repo.findAll();
 	     model.addAttribute("organizations", organizations);
         return "index";
         
     }
-	@RequestMapping("orga/new/{nom}")
-    public @ResponseBody String newOrga(@PathVariable String nom) {
-		Organization e = new Organization();
-		e.setName(nom);
-		e.setDomain("unicaen");
-		e.setAliases("alias");
+	@RequestMapping("orga/new")
+	public String addNewOrga() {
+		return "viewNewOrga";
+	}
+	@RequestMapping("orga/newOrga")
+    public RedirectView New(@RequestParam String name,@RequestParam String domain,@RequestParam String aliases,@ModelAttribute("organizations") Organization orga) {
+		Organization e = orga;
+		e.setName(name);
+		e.setDomain(domain);
+		e.setAliases(aliases);
         repo.saveAndFlush(e);
-        return e+" ajoutée.";
+        return new RedirectView("/");
     }
-	
+
+	@RequestMapping("orga/delete/{id}")
+    public RedirectView New(@PathVariable int id) {
+		repo.deleteById(id);
+        return new RedirectView("/");
+    }
 	@RequestMapping("orga/{id}")
     public @ResponseBody String getOrga(@PathVariable int id) {
 		Optional<Organization> opt = repo.findById(id);
@@ -67,20 +77,8 @@ public class OrgaController {
         return "organisation non trouvée";
         
     }
-	@RequestMapping("user/new/{name}/{orgaName}")
-    public @ResponseBody String addUserInOrga(@PathVariable String name,@PathVariable String orgaName ) {
-		Optional<Organization> orga=repo.findByName(orgaName);
-		
-        if(orga!=null) {
-        	User user= new User();
-        	user.setName(name);
-        	user.setOrga(orga.get());
-        	uRepo.saveAndFlush(user);
-        	return user+"";
-        }
-        return "organisation non trouvée";
-        
-    }
+	
+
 
 
 	

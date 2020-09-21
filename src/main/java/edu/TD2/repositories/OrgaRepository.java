@@ -11,6 +11,7 @@ public interface OrgaRepository extends JpaRepository<Organization, Integer> {
 	
     List<Organization> findByDomain(String domain);
     List<Organization> findAll();
+    List<Organization> deleteById(int id);
     
 	public Optional<Organization> findByName(String name);
 	

@@ -1,0 +1,40 @@
+{{> include/header}}
+
+<h4 style="margin-top:5px;" class="ui header block">
+
+
+
+
+<i class="big icons">
+  <i class="table icon"></i>
+  <i class="bottom right corner add icon"></i>
+</i>
+
+
+  
+  <div class="content">
+    models\Organization
+    <div class="sub header">New object creation</div>
+  </div>
+</h4>
+<form class="ui form"method="POST" action="/orga/newOrga" modelAttribute="organizations">
+  <div class="field">
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Name">
+  </div>
+  <div class="field">
+    <label>Domain</label>
+    <input type="text" name="domain" placeholder="Domain">
+  </div>
+    <div class="field">
+    <label>Aliases</label>
+    <input type="text" name="aliases" placeholder="Aliases">
+  </div>
+  
+  <div class="ui container segment">
+    <button class="ui green button" type="submit"><i class="circle check icon"></i>Validate</button>
+    <button class="ui button" type="button" onclick="window.location.href='/'"><i class="circle outline icon"></i>Cancel</button>
+ </div>
+</form>
+
+{{> include/footer}}
