@@ -10,7 +10,8 @@ import edu.TD2.models.Organization;
 public interface OrgaRepository extends JpaRepository<Organization, Integer> {
 	
     List<Organization> findByDomain(String domain);
-
+    List<Organization> findAll();
+    
 	public Optional<Organization> findByName(String name);
 	
 

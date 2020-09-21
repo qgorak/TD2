@@ -21,14 +21,17 @@ public class Organization {
     private String name;
     private String domain;
     private String aliases;
+	@OneToMany(mappedBy ="orga")
+    private List<User> users;
+    
+    
     public List<User> getUsers() {
 		return users;
 	}
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	@OneToMany(mappedBy ="orga")
-    private List<User> users;
+
     
 
 

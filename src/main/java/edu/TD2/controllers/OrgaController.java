@@ -12,6 +12,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,11 +40,20 @@ public class OrgaController {
     private OrgaRepository repo;
 	@Autowired
 	private UserRepository uRepo;
-    
+	
+	@GetMapping("/")
+    public String index(Model model) {
+		 List<Organization> organizations = repo.findAll();
+	     model.addAttribute("organizations", organizations);
+        return "index";
+        
+    }
 	@RequestMapping("orga/new/{nom}")
     public @ResponseBody String newOrga(@PathVariable String nom) {
 		Organization e = new Organization();
 		e.setName(nom);
+		e.setDomain("unicaen");
+		e.setAliases("alias");
         repo.saveAndFlush(e);
         return e+" ajoutée.";
     }
@@ -77,6 +88,3 @@ public class OrgaController {
 	
 
 }
-
-
-
