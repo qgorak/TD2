@@ -1,24 +1,37 @@
-</div>
+<div></div>
 <script type="text/javascript">
-    function clearSearch() {
-        window.location = "/orgas/";
-    }
-    var urlParams = new URLSearchParams(window.location.search); //get all parameters
-    var keyword = urlParams.get('keyword');  //extract the keyword parameter - this will return NULL if keyword isn't a parameter
+	function clearSearch() {
+		window.location = "/orgas/";
+	}
 
-    if(keyword) { //check if keyword parameter is set to anything
-      	
-        document.getElementById("but").style.display = "visible";
-    }else{
-    	document.getElementById("but").style.display = "none";
-    }
-	var url = window.location.href;
-	url = url.replace("http://localhost:8080/orgas/details/", "");
-	var keyword = urlParams.get('keyword');
-	url = url.replace("?keyword=" + keyword, "");
-	document.getElementById(url).style.backgroundColor = "silver";
+	var urlParams = new URLSearchParams(window.location.search); //get all parameters
+	var keyword = urlParams.get('keyword'); //extract the keyword parameter - this will return NULL if keyword isn't a parameter
+
+	if (keyword) { //check if keyword parameter is set to anything
+
+		document.getElementById("but").style.display = "visible";
+	} else {
+		document.getElementById("but").style.display = "none";
+	}
+
+	function confirmButton(domain, id) {
+		var message = document.getElementById("confirmDelete");
+		message.style.display = "block"
+		document.getElementById("confirmButton").onclick = function() {
+			window.location = "/orgas/delete/" + id;
+
+		};
+		document.getElementById("domain").innerHTML = domain;
+	}
+	
+	function hideConfirm() {
+		var message = document.getElementById("confirmDelete");
+		message.style.display = "none"
+
+	}
 </script>
-<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="/webjars/fomantic-ui/dist/semantic.min.js"></script>
-</body>
-</html>
+<script src="/webjars/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+<script src="/webjars/fomantic-ui/dist/semantic.min.js"
+	type="text/javascript"></script>
+<body></body>
+<html></html>

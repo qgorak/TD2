@@ -2,42 +2,81 @@
 
 <div class="ui container segment">
 
-<button class="ui black button" onclick="window.location.href='/orgas/new'"><i class="plus icon"></i>Ajouter une organisation</button>
+	<button class="ui black button"
+		onclick="window.location.href='/orgas/new'">
+		<i class="plus icon"></i>Ajouter une organisation
+	</button>
 
-<div class="ui hidden divider"></div>
-<button class="ui button" onclick="window.location.href='/orgas/'"><i class="x icon"></i>Fermer</button>
-<button class="ui red basic button" onclick="window.location.href='/orgas/delete/{{id}}'"><i class="x icon"></i>Supprimer <b>{{domain}}</b></button>
-<button class="ui basic button" onclick="window.location.href='/orgas/edit/{{id}}'"><i class="edit icon"></i>Modifier<b> {{domain}}</b></button>
-<table class="ui definition table">
+	<div class="ui hidden divider"></div>
+	<button class="ui button" onclick="window.location.href='/orgas/'">
+		<i class="x icon"></i>Fermer
+	</button>
+	<button class="ui red basic button"
+		onclick="confirmButton('{{domain}}','{{id}}')">
+		<i class="x icon"></i>Supprimer <b>{{domain}}</b>
+	</button>
+	<button class="ui basic button"
+		onclick="window.location.href='/orgas/edit/{{id}}'">
+		<i class="edit icon"></i>Modifier<b> {{domain}}</b>
+	</button>
+	<div class="ui hidden divider"></div>
+	<div style="display: none;" id="confirmDelete">
+		<div class="ui icon negative message">
+			<i class="question circle icon"></i> <i onclick="hideConfirm()"
+				class="close icon"></i>
+			<div class="content">
+				<div class="header">Confirmation de suppression</div>
+				<p>
+					Confirmez-vous la suppression de'<b id="domain">'?</b>
+				</p>
+				<hr>
 
-  <tbody>
-    <tr>
-      <td>Id</td>
-      <td>{{id}}</td>
-      
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{name}}</td>
-    </tr>
-          <td>Domain</td>
-      <td>{{domain}}</td>
-    </tr>
-          <td>Aliases</td>
-      <td>{{aliases}}</td>
-    </tr>
-   		<td>Groupes</td>
-      <td></td>
-      </tr>
-      <td>Organizationsettingss<td>
-      <td></td>
-      </tr>
-            <td>Users<td>
-      <td></td>
-    </tr>
+				<button onclick="hideConfirm()" style="float: right;"
+					class="ui button">
+					<i class="circle outline icon"></i> Annuler
+				</button>
+				<button style="float: right;" id="confirmButton"
+					class="ui red button">
+					<i class="check circle icon"></i> Confirmer
+				</button>
+			</div>
+		</div>
+	</div>
+	<table class="ui definition table">
+		<tbody>
+			<tr>
+
+				<td>Id</td>
+				<td>{{id}}</td>
+
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>{{name}}</td>
+			</tr>
+			<td>Domain</td>
+			<td>{{domain}}</td>
+			<tr></tr>
+			<td>Aliases</td>
+			<td>{{aliases}}</td>
+			<tr></tr>
+			<td>Groupes</td>
+			<td>{{#groupes}}{{name}}<br></br>{{/groupes}}
+			</td>
+			<tr></tr>
+			<td>Organizationsettingss</td>
+			<td>{{settings}}</td>
+			<td></td>
+			<tr></tr>
+			<td>Users</td>
+			<td>{{#users}}{{name}}<br></br>{{/users}}
+			</td>
+			<td></td>
+			<tr></tr>
 
 
-</tbody></table>
+		</tbody>
+	</table>
 
 </div>
 

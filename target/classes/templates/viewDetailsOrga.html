@@ -1,89 +1,161 @@
 {{> include/header}}
 
 <div class="ui container segment">
-<button class="ui black button" onclick="window.location.href='/orgas/new'"><i class="plus icon"></i>Ajouter une organisation</button>
-<table id="tableau" class="ui single line table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Domain</th>
-      <th>Aliases</th>
-		<th></th>
-    </tr>
-  </thead>
-  <tbody>
+	<button class="ui black button"
+		onclick="window.location.href='/orgas/new'">
+		<i class="plus icon"></i>Ajouter une organisation
+	</button>
+	<table id="tableau" class="ui single line table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Domain</th>
+				<th>Aliases</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
 
-  {{#organizations}}
-    <tr id="{{id}}">
-      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{id}}</td>
-      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{name}}</td>
-      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{domain}}</td>
-      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{aliases}}</td>
-      <td>
-     <button style="float:right;" onclick="window.location.href='/orgas/delete/{{id}}'" class="circular ui red basic icon button"><i class="x icon"></i></button>
-      <button style="float:right;" onclick="window.location.href='/orgas/edit/{{id}}'" class="circular ui basic icon button"><i class="edit icon"></i></button>
-      <button style="float:right;" onclick="window.location.href='/orgas/display/{{id}}'"class="circular white basic ui icon button"><i class="eye icon "></i></button>
-      
-      </td>
-    </tr>
- 
- {{/organizations}}
-  </tbody>
-     <tfoot>
-    
-        <tr >
-      <th></th>
-      <th></th>
-      <th></th>
-      <th> </th>
-      <th><form style="float:right;" action="/orgas/">
-      <div class="ui icon input">
-      <i class="search icon"></i>
-  <input class="search" type="text" placeholder="Search..." name="keyword" id="keyword" size="25" th:value="${keyword}" required />
+			{{#organizations}}
+			<tr id="{{id}}">
+				<td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{id}}</td>
+				<td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{name}}</td>
+				<td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{domain}}</td>
+				<td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{aliases}}</td>
+				<td>
+					<button style="float: right;"
+						onclick="confirmButton('{{domain}}','{{id}}')"
+						class="circular ui red basic icon button">
+						<i class="x icon"></i>
+					</button>
+					<button style="float: right;"
+						onclick="window.location.href='/orgas/edit/{{id}}'"
+						class="circular ui basic icon button">
+						<i class="edit icon"></i>
+					</button>
+					<button style="float: right;"
+						onclick="window.location.href='/orgas/display/{{id}}'"
+						class="circular white basic ui icon button">
+						<i class="eye icon "></i>
+					</button>
+
+				</td>
+			</tr>
+
+			{{/organizations}}
+		</tbody>
+		<tfoot>
+
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th><form style="float: right;" action="/orgas/">
+						<div class="ui icon input">
+							<i class="search icon"></i> <input class="search" type="text"
+								placeholder="Search..." name="keyword" id="keyword" size="25"
+								th:value="${keyword}" required />
+						</div>
+						<button id="but" class="ui icon button clear"
+							onclick="clearSearch()">
+							<i class="x icon"></i>
+						</button>
+					</form></th>
+			</tr>
+		</tfoot>
+	</table>
+		<div style="display: none;" id="confirmDelete">
+		<div class="ui icon negative message">
+			<i class="question circle icon"></i> <i onclick="hideConfirm()" class="close icon"></i>
+			<div class="content">
+				<div class="header">Confirmation de suppression</div>
+				<p>
+					Confirmez-vous la suppression de'<b id="domain">'?</b>
+				</p>
+				<hr>
+
+				<button onclick="hideConfirm()" style="float: right;" class="ui button">
+					<i class="circle outline icon"></i> Annuler
+				</button>
+				<button style="float: right;" id="confirmButton"
+					class="ui red button">
+					<i class="check circle icon"></i> Confirmer
+				</button>
+			</div>
+
+		</div>
+	</div>
+	<table class="ui very basic table">
+		<thead>
+			<tr>
+				<th>Groupes ( <b id="groupeLen"></b> )
+				</th>
+				<th>Settings ( 1 )</th>
+				<th>Utilisateurs ( <b id="userLen"></b> )
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#organization}}
+			<tr>
+
+				<td style="vertical-align: top;">
+					<ul style="list-style: none;" id="groupes">
+						{{#groupes}}
+						<li>{{name}}</li>
+						<hr>
+						{{/groupes}}
+					</ul>
+				</td>
+
+				<td style="vertical-align: top;">
+					<ul style="list-style: none;">
+						<li>{{settings}}</li>
+					</ul>
+				</td>
+
+				<td style="vertical-align: top;">
+					<ul style="list-style: none;" id="users">
+						{{#users}}
+						<li>{{name}}</li>
+						<hr>
+						{{/users}}
+					</ul>
+
+				</td>
+			</tr>
+			{{/organization}}
+
+		</tbody>
+	</table>
+
+
 </div>
-    <button id="but" class="ui icon button clear" onclick="clearSearch()"><i class="x icon"></i></button>
-</form></th>
-    </tr>
-</tfoot>
-</table>
-<table class="ui very basic table">
-  <thead>
-    <tr>
-      <th>Groupes</th>
-      <th>Settings</th>
-      <th>Utilisateurs</th>
-    </tr>
-  </thead>
-  <tbody>
-   {{#organization}}
-    <tr>
-            <td>{{#groupes}}
-            <ul>
-   <li>   {{name}}</li>
-      </ul>
-      {{/groupes}}</td>
-      
-      <td>{{settings}}</td>
-      
-      <td>{{#users}}
-      <ul>
-      <li>{{name}}</li>
-      </ul>
-      {{/users}}
-      </td>
-    </tr>
-     {{/organization}}
-
-  </tbody>
-</table>
-
-</div>
 
 
 
-  
-  
+<script type="text/javascript">
+	document.onreadystatechange = function() {
+		if (document.readyState === "interactive") {
+			var userLen = document.getElementById("users")
+					.getElementsByTagName("li").length;
+			var groupeLen = document.getElementById("groupes")
+					.getElementsByTagName("li").length;
+			document.getElementById("userLen").innerHTML = userLen;
+			document.getElementById("groupeLen").innerHTML = groupeLen;
+
+			var url = window.location.href;
+			url = url.replace("http://localhost:8080/orgas/details/", "");
+			var keyword = urlParams.get('keyword');
+			url = url.replace("?keyword=" + keyword, "");
+			document.getElementById(url).style.backgroundColor = "silver";
+		}
+
+	}
+</script>
+
 
 
 
