@@ -7,17 +7,16 @@
     var keyword = urlParams.get('keyword');  //extract the keyword parameter - this will return NULL if keyword isn't a parameter
 
     if(keyword) { //check if keyword parameter is set to anything
-      
+      	
         document.getElementById("but").style.display = "visible";
     }else{
     	document.getElementById("but").style.display = "none";
     }
-
-;
-    $('#tableau .id').each(function() {
-    	alert($(this).html());    
-     });
-    
+	var url = window.location.href;
+	url = url.replace("http://localhost:8080/orgas/details/", "");
+	var keyword = urlParams.get('keyword');
+	url = url.replace("?keyword=" + keyword, "");
+	document.getElementById(url).style.backgroundColor = "silver";
 </script>
 <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="/webjars/fomantic-ui/dist/semantic.min.js"></script>

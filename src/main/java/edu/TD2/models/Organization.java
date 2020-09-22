@@ -21,10 +21,13 @@ public class Organization {
     private String name;
     private String domain;
     private String aliases;
-    private Boolean active;
+    private String settings;
 
-	@OneToMany(mappedBy ="orga")
+	@OneToMany(mappedBy ="orga",cascade = CascadeType.REMOVE)
     private List<User> users;
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="orga")
+    private List<Groupe> groupes;
+	
     
     
     public List<User> getUsers() {
@@ -33,6 +36,10 @@ public class Organization {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+	public void addUser(User user) {
+		this.users.add(user);
+	}
+
 
     
 
@@ -64,16 +71,17 @@ public class Organization {
 	public void setAliases(String aliases) {
 		this.aliases = aliases;
 	}
-	public Boolean getActive() {
-		return active;
+	public String getSettings() {
+		return settings;
 	}
-	public void setActive(Boolean active) {
-		this.active = active;
+	public void setSettings(String settings) {
+		this.settings = settings;
 	}
 	@Override
 
 	public String toString() {
 		return this.name;
 	}
+
 
 }

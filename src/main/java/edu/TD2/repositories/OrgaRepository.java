@@ -16,15 +16,22 @@ public interface OrgaRepository extends JpaRepository<Organization, Integer> {
     List<Organization> findAll();
     List<Organization> deleteById(int id);
 
+
     
 	public Optional<Organization> findByName(String name);
 	public Organization findById(int id);
+	
 	@Query("update Organization o set o.name = :name WHERE o.id = :id")
 	     void setOrgaName(@Param("id") int id, @Param("name") String name);
+	
+	
+
+
+	
 	@Query("SELECT o FROM Organization o WHERE o.name LIKE %?1%"
             + " OR o.domain LIKE %?1%"
             + " OR o.aliases LIKE %?1%")
-    public List<Organization> search(String keyword);
+    	public List<Organization> search(String keyword);
 	
 	  }
 

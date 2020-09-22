@@ -1,7 +1,9 @@
 package edu.TD2.controllers;
+import edu.TD2.models.Groupe;
 import edu.TD2.models.Organization;
 import edu.TD2.models.User;
 import edu.TD2.models.WebConfig;
+import edu.TD2.repositories.GroupRepository;
 import edu.TD2.repositories.OrgaRepository;
 import edu.TD2.repositories.UserRepository;
 
@@ -42,6 +44,8 @@ public class OrgaController {
     private OrgaRepository repo;
 	@Autowired
 	private UserRepository uRepo;
+	@Autowired
+	private GroupRepository gRepo;
 	
 	
 
@@ -49,6 +53,7 @@ public class OrgaController {
     
 	@RequestMapping("/orgas/")
     public String index(Model model, @Param("keyword") String keyword) {
+
 		if (keyword != null) {
 			List<Organization> organizations = repo.search(keyword);
 	        model.addAttribute("organizations", organizations);
@@ -103,24 +108,24 @@ public class OrgaController {
 		orgaToUpdate.setDomain(orga.getDomain());
 		orgaToUpdate.setAliases(orga.getAliases());
 		repo.save(orgaToUpdate);
-        return new RedirectView("/");
+        return new RedirectView("/orgas/");
     }
 	@RequestMapping("orgas/details/{id}")
     public String displayDetailsOrga(@PathVariable int id,@Param("keyword") String keyword,Model models,Model model) {
+		Organization opt = repo.findById(id);
+		models.addAttribute("organization", opt);
+		
 		if (keyword != null) {
-			Organization orgaActive = repo.findById(id);
-			orgaActive.setActive(true);
 			
 			List<Organization> organizations = repo.search(keyword);
-			organizations.add(repo.findById(id).getId(), orgaActive);
 	        model.addAttribute("organizations", organizations);
 	        
 	        return "viewDetailsOrga";
 	        }
 	    List<Organization> organizations = repo.findAll();
 
-	    model.addAttribute("organizations", organizations);
-
+	    models.addAttribute("organizations", organizations);
+	    model.addAttribute("organization",opt);
         return "viewDetailsOrga";
     }
 	//@RequestMapping("orga/{id}")

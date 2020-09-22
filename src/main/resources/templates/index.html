@@ -14,11 +14,11 @@
   </thead>
   <tbody>
   {{#organizations}}
-    <tr onclick="location.href='/orgas/details/{{id}}'+ location.search">
-      <td>{{id}}</td>
-      <td>{{name}}</td>
-      <td>{{domain}}</td>
-      <td>{{aliases}}</td>
+    <tr>
+      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{id}}</td>
+      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{name}}</td>
+      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{domain}}</td>
+      <td onclick="location.href='/orgas/details/{{id}}'+ location.search">{{aliases}}</td>
       <td>
      <button style="float:right;" onclick="window.location.href='/orgas/delete/{{id}}'" class="circular ui red basic icon button"><i class="x icon"></i></button>
       <button style="float:right;" onclick="window.location.href='/orgas/edit/{{id}}'" class="circular ui basic icon button"><i class="edit icon"></i></button>
