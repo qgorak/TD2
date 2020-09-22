@@ -43,23 +43,24 @@ public class OrgaController {
 	@Autowired
 	private UserRepository uRepo;
 	
+	
 
     
     
 	@RequestMapping("/orgas/")
     public String index(Model model, @Param("keyword") String keyword) {
-	    
-	        if (keyword != null) {
-	        	List<Organization> organizations = repo.search(keyword);
-	        	model.addAttribute("organizations", organizations);
-	        	return "index";
+		if (keyword != null) {
+			List<Organization> organizations = repo.search(keyword);
+	        model.addAttribute("organizations", organizations);
+	        return "index";
 	        }
-	     List<Organization> organizations = repo.findAll();
-	     repo.findAll();
-	     model.addAttribute("organizations", organizations);
+	    List<Organization> organizations = repo.findAll();
+
+	    model.addAttribute("organizations", organizations);
         return "index";
-       
-    }
+       }
+	
+	
 	@RequestMapping("orgas/new")
 	public String displayNewOrga() {
 		return "viewNewOrga";
@@ -104,15 +105,26 @@ public class OrgaController {
 		repo.save(orgaToUpdate);
         return new RedirectView("/");
     }
+	@RequestMapping("orgas/details/{id}")
+    public String displayDetailsOrga(@PathVariable int id,@Param("keyword") String keyword,Model models,Model model) {
+		if (keyword != null) {
+			Organization orgaActive = repo.findById(id);
+			orgaActive.setActive(true);
+			
+			List<Organization> organizations = repo.search(keyword);
+			organizations.add(repo.findById(id).getId(), orgaActive);
+	        model.addAttribute("organizations", organizations);
+	        
+	        return "viewDetailsOrga";
+	        }
+	    List<Organization> organizations = repo.findAll();
+
+	    model.addAttribute("organizations", organizations);
+
+        return "viewDetailsOrga";
+    }
 	//@RequestMapping("orga/{id}")
-  //  public @ResponseBody String getOrga(@PathVariable int id) {
-//		Optional<Organization> opt = repo.findById(id);
- //       if(opt.isPresent()) {
-  //      	return opt.get()+"";
- //       }
- //       return "organisation non trouvée";
-        
-  //  }
+
 	
 
 

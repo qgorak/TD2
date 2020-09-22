@@ -21,6 +21,8 @@ public class Organization {
     private String name;
     private String domain;
     private String aliases;
+    private Boolean active;
+
 	@OneToMany(mappedBy ="orga")
     private List<User> users;
     
@@ -62,9 +64,16 @@ public class Organization {
 	public void setAliases(String aliases) {
 		this.aliases = aliases;
 	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 	@Override
 
 	public String toString() {
 		return this.name;
 	}
+
 }

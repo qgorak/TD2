@@ -2,7 +2,7 @@
 
 <div class="ui container segment">
 <button class="ui black button" onclick="window.location.href='/orgas/new'"><i class="plus icon"></i>Ajouter une organisation</button>
-<table class="ui single line table">
+<table id="tableau" class="ui single line table">
   <thead>
     <tr>
       <th>Id</th>
@@ -13,9 +13,10 @@
     </tr>
   </thead>
   <tbody>
+  {{id}}
   {{#organizations}}
-    <tr onclick="location.href='/orgas/details/{{id}}'+ location.search">
-      <td>{{id}}</td>
+    <tr>
+      <td ><span class="id">{{id}}</span></td>
       <td>{{name}}</td>
       <td>{{domain}}</td>
       <td>{{aliases}}</td>
@@ -26,7 +27,7 @@
       
       </td>
     </tr>
- </a>
+ 
  {{/organizations}}
   </tbody>
      <tfoot>
